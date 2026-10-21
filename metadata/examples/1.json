@@ -1,0 +1,32 @@
+{
+  "name": "GreenCat #1",
+  "symbol": "GCAT",
+  "description": "EXAMPLE ONLY — not production art. Common GreenCat meme · catalog seed greencat-meme-collection-v1. Replace image + trait text after the art pipeline upload.",
+  "image": "https://www.greencat69420.com/nft/placeholders/EXAMPLE-1.png",
+  "external_url": "https://www.greencat69420.com",
+  "attributes": [
+    { "trait_type": "Rarity", "value": "Common" },
+    { "trait_type": "Background", "value": "EXAMPLE — deep forest" },
+    { "trait_type": "Fur", "value": "EXAMPLE — lime vinyl" },
+    { "trait_type": "Eyes", "value": "EXAMPLE — sleepy" },
+    { "trait_type": "Hat", "value": "EXAMPLE — none" },
+    { "trait_type": "Accessory", "value": "EXAMPLE — none" },
+    { "trait_type": "Catchphrase", "value": "EXAMPLE — wagmi paws" },
+    { "trait_type": "Catalog Seed", "value": "greencat-meme-collection-v1" },
+    { "trait_type": "Token ID", "value": "1" },
+    { "trait_type": "Status", "value": "EXAMPLE PLACEHOLDER — metadata not uploaded yet" }
+  ],
+  "properties": {
+    "category": "image",
+    "files": [
+      {
+        "uri": "https://www.greencat69420.com/nft/placeholders/EXAMPLE-1.png",
+        "type": "image/png"
+      }
+    ]
+  },
+  "_greencat": {
+    "example": true,
+    "note": "DRAFT SAMPLE. Do not treat as live collection metadata. See docs/METADATA-PIPELINE.md"
+  }
+}

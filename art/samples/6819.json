@@ -1,0 +1,70 @@
+{
+  "name": "GreenCat #6819",
+  "symbol": "GCAT",
+  "description": "Legendary GreenCat · Holo Foil · Glow-in-the-Dark fur · Glow Eyes eyes · Crown · $GC Neon Sign · Neon Aura · “meow or never”",
+  "image": "https://www.greencat69420.com/nft/images/6819.png",
+  "external_url": "https://www.greencat69420.com",
+  "attributes": [
+    {
+      "trait_type": "Rarity",
+      "value": "Legendary"
+    },
+    {
+      "trait_type": "Background",
+      "value": "Holo Foil"
+    },
+    {
+      "trait_type": "Fur",
+      "value": "Glow-in-the-Dark"
+    },
+    {
+      "trait_type": "Eyes",
+      "value": "Glow Eyes"
+    },
+    {
+      "trait_type": "Eyewear",
+      "value": "None"
+    },
+    {
+      "trait_type": "Hat",
+      "value": "Crown"
+    },
+    {
+      "trait_type": "Accessory",
+      "value": "$GC Neon Sign"
+    },
+    {
+      "trait_type": "Aura",
+      "value": "Neon Aura"
+    },
+    {
+      "trait_type": "Catchphrase",
+      "value": "meow or never"
+    },
+    {
+      "trait_type": "Catalog Seed",
+      "value": "greencat-meme-collection-v1"
+    },
+    {
+      "trait_type": "Token ID",
+      "value": "6819"
+    }
+  ],
+  "properties": {
+    "category": "image",
+    "files": [
+      {
+        "uri": "https://www.greencat69420.com/nft/images/6819.png",
+        "type": "image/png"
+      }
+    ]
+  },
+  "_greencat": {
+    "draft": true,
+    "artVersion": "art-v1",
+    "rarity": "legendary",
+    "catalogSeed": "greencat-meme-collection-v1",
+    "rerolls": 0,
+    "note": "PHASE 1 DRAFT - image URI is a placeholder until upload (see art/README.md)."
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "name": "GreenCat #258",
+  "symbol": "GCAT",
+  "description": "Common GreenCat · Lavender Flat · Forest Vinyl fur · Sleepy eyes · Monocle · Beanie · Silver Chain · “to the litterbox”",
+  "image": "https://www.greencat69420.com/nft/images/258.png",
+  "external_url": "https://www.greencat69420.com",
+  "attributes": [
+    {
+      "trait_type": "Rarity",
+      "value": "Common"
+    },
+    {
+      "trait_type": "Background",
+      "value": "Lavender Flat"
+    },
+    {
+      "trait_type": "Fur",
+      "value": "Forest Vinyl"
+    },
+    {
+      "trait_type": "Eyes",
+      "value": "Sleepy"
+    },
+    {
+      "trait_type": "Eyewear",
+      "value": "Monocle"
+    },
+    {
+      "trait_type": "Hat",
+      "value": "Beanie"
+    },
+    {
+      "trait_type": "Accessory",
+      "value": "Silver Chain"
+    },
+    {
+      "trait_type": "Aura",
+      "value": "None"
+    },
+    {
+      "trait_type": "Catchphrase",
+      "value": "to the litterbox"
+    },
+    {
+      "trait_type": "Catalog Seed",
+      "value": "greencat-meme-collection-v1"
+    },
+    {
+      "trait_type": "Token ID",
+      "value": "258"
+    }
+  ],
+  "properties": {
+    "category": "image",
+    "files": [
+      {
+        "uri": "https://www.greencat69420.com/nft/images/258.png",
+        "type": "image/png"
+      }
+    ]
+  },
+  "_greencat": {
+    "draft": true,
+    "artVersion": "art-v1",
+    "rarity": "common",
+    "catalogSeed": "greencat-meme-collection-v1",
+    "rerolls": 0,
+    "note": "PHASE 1 DRAFT - image URI is a placeholder until upload (see art/README.md)."
+  }
+}

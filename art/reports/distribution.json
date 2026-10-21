@@ -1,0 +1,559 @@
+{
+ "tokens": 10000,
+ "uniqueCombos": 10000,
+ "counts": {
+  "Rarity": {
+   "Common": 7000,
+   "Uncommon": 2000,
+   "Rare": 900,
+   "Legendary": 100
+  },
+  "Background": {
+   "Seafoam Flat": 585,
+   "Coral Flat": 545,
+   "Sky Flat": 658,
+   "Deep Forest": 661,
+   "Pixel Meadow": 431,
+   "Vinyl Void": 529,
+   "Butter Flat": 562,
+   "Mint Flat": 708,
+   "Peach Flat": 624,
+   "Sage Flat": 620,
+   "Lavender Flat": 737,
+   "Sol Dusk": 240,
+   "Concrete Grey": 645,
+   "Lime Nebula": 201,
+   "Chart Green": 241,
+   "Lo-fi Night": 124,
+   "Cream Flat": 561,
+   "Neon Alley": 258,
+   "Halftone Lime": 520,
+   "Slate Flat": 495,
+   "Laser Loft": 14,
+   "Holo Foil": 14,
+   "Moonlit Rooftop": 18,
+   "Golden Vault": 9
+  },
+  "Fur": {
+   "Olive Glow": 812,
+   "Sky Vinyl": 802,
+   "Bubblegum": 778,
+   "Forest Vinyl": 932,
+   "Chartreuse": 846,
+   "Lime Vinyl": 3314,
+   "Chrome": 145,
+   "Neon Cream": 852,
+   "Mint Vinyl": 955,
+   "Midnight": 215,
+   "Gold": 105,
+   "Sol Gradient": 121,
+   "Holographic": 62,
+   "Glow-in-the-Dark": 52,
+   "Galaxy": 9
+  },
+  "Eyes": {
+   "Wink": 1168,
+   "Dizzy": 280,
+   "Side-Eye": 1481,
+   "Tiny Pupils": 1193,
+   "Big Pupils": 1128,
+   "Sleepy": 1196,
+   "Grumpy": 3045,
+   "Star Eyes": 90,
+   "Heart Eyes": 273,
+   "Glow Eyes": 71,
+   "Laser Eyes": 75
+  },
+  "Eyewear": {
+   "None": 6879,
+   "Monocle": 798,
+   "3D Glasses": 829,
+   "Round Specs": 1014,
+   "Cool Shades": 369,
+   "Pixel Shades": 62,
+   "Gold Aviators": 22,
+   "Neon Visor": 27
+  },
+  "Hat": {
+   "None": 2666,
+   "Backwards Cap": 1006,
+   "Bandana": 914,
+   "Propeller Cap": 645,
+   "Cowboy Hat": 582,
+   "Party Hat": 799,
+   "Beanie": 1000,
+   "Halo": 85,
+   "Bucket Hat": 868,
+   "Headphones": 996,
+   "Wizard Hat": 165,
+   "Crown": 115,
+   "Top Hat": 159
+  },
+  "Accessory": {
+   "None": 2763,
+   "Scarf": 1005,
+   "Bow Tie": 949,
+   "Silver Chain": 1041,
+   "Balloon": 952,
+   "Cassette Tape": 901,
+   "Coffee Cup": 1016,
+   "Gold Chain": 730,
+   "$GC Pendant": 234,
+   "$GC Neon Sign": 107,
+   "Sol-Gradient Coin": 131,
+   "Diamond Chain": 75,
+   "Vinyl Record": 96
+  },
+  "Aura": {
+   "None": 9635,
+   "Lime Glow": 161,
+   "Sparkles": 161,
+   "Neon Aura": 28,
+   "Gold Aura": 15
+  },
+  "Catchphrase": {
+   "hodl whiskers": 881,
+   "wagmi paws": 803,
+   "floor is lava": 826,
+   "vibes only": 862,
+   "ngmi? ngmi not": 827,
+   "green candle cat": 888,
+   "meow or never": 818,
+   "purrcentage gains": 804,
+   "send it, human": 853,
+   "to the litterbox": 807,
+   "based feline": 805,
+   "pump the yarn": 826
+  }
+ },
+ "byTier": {
+  "Background": {
+   "Seafoam Flat": {
+    "Common": 527,
+    "Uncommon": 58
+   },
+   "Coral Flat": {
+    "Common": 476,
+    "Uncommon": 69
+   },
+   "Sky Flat": {
+    "Common": 590,
+    "Uncommon": 68
+   },
+   "Deep Forest": {
+    "Uncommon": 276,
+    "Common": 324,
+    "Rare": 61
+   },
+   "Pixel Meadow": {
+    "Rare": 59,
+    "Common": 162,
+    "Uncommon": 210
+   },
+   "Vinyl Void": {
+    "Rare": 47,
+    "Common": 207,
+    "Uncommon": 275
+   },
+   "Butter Flat": {
+    "Common": 511,
+    "Uncommon": 51
+   },
+   "Mint Flat": {
+    "Common": 639,
+    "Uncommon": 69
+   },
+   "Peach Flat": {
+    "Common": 575,
+    "Uncommon": 49
+   },
+   "Sage Flat": {
+    "Common": 564,
+    "Uncommon": 56
+   },
+   "Lavender Flat": {
+    "Common": 672,
+    "Uncommon": 65
+   },
+   "Sol Dusk": {
+    "Rare": 147,
+    "Uncommon": 88,
+    "Legendary": 5
+   },
+   "Concrete Grey": {
+    "Common": 594,
+    "Uncommon": 51
+   },
+   "Lime Nebula": {
+    "Rare": 122,
+    "Uncommon": 71,
+    "Legendary": 8
+   },
+   "Chart Green": {
+    "Uncommon": 83,
+    "Rare": 148,
+    "Legendary": 10
+   },
+   "Lo-fi Night": {
+    "Rare": 108,
+    "Legendary": 16
+   },
+   "Cream Flat": {
+    "Common": 508,
+    "Uncommon": 53
+   },
+   "Neon Alley": {
+    "Rare": 155,
+    "Uncommon": 97,
+    "Legendary": 6
+   },
+   "Halftone Lime": {
+    "Uncommon": 253,
+    "Common": 214,
+    "Rare": 53
+   },
+   "Slate Flat": {
+    "Common": 437,
+    "Uncommon": 58
+   },
+   "Laser Loft": {
+    "Legendary": 14
+   },
+   "Holo Foil": {
+    "Legendary": 14
+   },
+   "Moonlit Rooftop": {
+    "Legendary": 18
+   },
+   "Golden Vault": {
+    "Legendary": 9
+   }
+  },
+  "Fur": {
+   "Olive Glow": {
+    "Common": 575,
+    "Rare": 51,
+    "Uncommon": 186
+   },
+   "Sky Vinyl": {
+    "Common": 586,
+    "Uncommon": 163,
+    "Rare": 53
+   },
+   "Bubblegum": {
+    "Common": 548,
+    "Uncommon": 173,
+    "Rare": 57
+   },
+   "Forest Vinyl": {
+    "Uncommon": 220,
+    "Common": 666,
+    "Rare": 46
+   },
+   "Chartreuse": {
+    "Rare": 30,
+    "Common": 612,
+    "Uncommon": 204
+   },
+   "Lime Vinyl": {
+    "Common": 2689,
+    "Uncommon": 525,
+    "Rare": 93,
+    "Legendary": 7
+   },
+   "Chrome": {
+    "Rare": 132,
+    "Legendary": 13
+   },
+   "Neon Cream": {
+    "Common": 619,
+    "Uncommon": 187,
+    "Rare": 46
+   },
+   "Mint Vinyl": {
+    "Uncommon": 210,
+    "Common": 705,
+    "Rare": 40
+   },
+   "Midnight": {
+    "Uncommon": 132,
+    "Rare": 81,
+    "Legendary": 2
+   },
+   "Gold": {
+    "Rare": 89,
+    "Legendary": 16
+   },
+   "Sol Gradient": {
+    "Rare": 106,
+    "Legendary": 15
+   },
+   "Holographic": {
+    "Legendary": 26,
+    "Rare": 36
+   },
+   "Glow-in-the-Dark": {
+    "Rare": 40,
+    "Legendary": 12
+   },
+   "Galaxy": {
+    "Legendary": 9
+   }
+  },
+  "Eyes": {
+   "Wink": {
+    "Common": 882,
+    "Uncommon": 215,
+    "Rare": 64,
+    "Legendary": 7
+   },
+   "Dizzy": {
+    "Uncommon": 180,
+    "Rare": 94,
+    "Legendary": 6
+   },
+   "Side-Eye": {
+    "Rare": 89,
+    "Common": 1102,
+    "Uncommon": 286,
+    "Legendary": 4
+   },
+   "Tiny Pupils": {
+    "Common": 902,
+    "Rare": 75,
+    "Uncommon": 216
+   },
+   "Big Pupils": {
+    "Common": 856,
+    "Uncommon": 208,
+    "Rare": 64
+   },
+   "Sleepy": {
+    "Common": 923,
+    "Rare": 73,
+    "Uncommon": 200
+   },
+   "Grumpy": {
+    "Common": 2335,
+    "Uncommon": 519,
+    "Rare": 181,
+    "Legendary": 10
+   },
+   "Star Eyes": {
+    "Rare": 72,
+    "Legendary": 18
+   },
+   "Heart Eyes": {
+    "Uncommon": 176,
+    "Legendary": 10,
+    "Rare": 87
+   },
+   "Glow Eyes": {
+    "Rare": 59,
+    "Legendary": 12
+   },
+   "Laser Eyes": {
+    "Legendary": 33,
+    "Rare": 42
+   }
+  },
+  "Eyewear": {
+   "None": {
+    "Common": 4798,
+    "Uncommon": 1383,
+    "Rare": 623,
+    "Legendary": 75
+   },
+   "Monocle": {
+    "Rare": 70,
+    "Common": 567,
+    "Legendary": 4,
+    "Uncommon": 157
+   },
+   "3D Glasses": {
+    "Common": 569,
+    "Uncommon": 180,
+    "Rare": 80
+   },
+   "Round Specs": {
+    "Uncommon": 186,
+    "Common": 777,
+    "Rare": 51
+   },
+   "Cool Shades": {
+    "Common": 289,
+    "Rare": 21,
+    "Uncommon": 56,
+    "Legendary": 3
+   },
+   "Pixel Shades": {
+    "Rare": 21,
+    "Uncommon": 38,
+    "Legendary": 3
+   },
+   "Gold Aviators": {
+    "Legendary": 11,
+    "Rare": 11
+   },
+   "Neon Visor": {
+    "Rare": 23,
+    "Legendary": 4
+   }
+  },
+  "Hat": {
+   "None": {
+    "Common": 2008,
+    "Rare": 158,
+    "Uncommon": 500
+   },
+   "Backwards Cap": {
+    "Common": 743,
+    "Rare": 53,
+    "Uncommon": 210
+   },
+   "Bandana": {
+    "Common": 692,
+    "Uncommon": 171,
+    "Rare": 51
+   },
+   "Propeller Cap": {
+    "Uncommon": 123,
+    "Common": 467,
+    "Rare": 55
+   },
+   "Cowboy Hat": {
+    "Rare": 63,
+    "Uncommon": 128,
+    "Common": 384,
+    "Legendary": 7
+   },
+   "Party Hat": {
+    "Common": 623,
+    "Uncommon": 131,
+    "Rare": 45
+   },
+   "Beanie": {
+    "Common": 736,
+    "Uncommon": 200,
+    "Rare": 64
+   },
+   "Halo": {
+    "Rare": 61,
+    "Legendary": 24
+   },
+   "Bucket Hat": {
+    "Uncommon": 166,
+    "Rare": 40,
+    "Common": 662
+   },
+   "Headphones": {
+    "Rare": 91,
+    "Common": 685,
+    "Uncommon": 207,
+    "Legendary": 13
+   },
+   "Wizard Hat": {
+    "Rare": 63,
+    "Uncommon": 95,
+    "Legendary": 7
+   },
+   "Crown": {
+    "Rare": 84,
+    "Legendary": 31
+   },
+   "Top Hat": {
+    "Rare": 72,
+    "Uncommon": 69,
+    "Legendary": 18
+   }
+  },
+  "Accessory": {
+   "None": {
+    "Common": 2148,
+    "Uncommon": 494,
+    "Rare": 121
+   },
+   "Scarf": {
+    "Common": 778,
+    "Rare": 47,
+    "Uncommon": 180
+   },
+   "Bow Tie": {
+    "Common": 700,
+    "Uncommon": 197,
+    "Rare": 52
+   },
+   "Silver Chain": {
+    "Rare": 71,
+    "Common": 758,
+    "Uncommon": 212
+   },
+   "Balloon": {
+    "Common": 743,
+    "Uncommon": 137,
+    "Rare": 72
+   },
+   "Cassette Tape": {
+    "Rare": 62,
+    "Common": 681,
+    "Uncommon": 152,
+    "Legendary": 6
+   },
+   "Coffee Cup": {
+    "Common": 757,
+    "Uncommon": 217,
+    "Rare": 42
+   },
+   "Gold Chain": {
+    "Common": 435,
+    "Uncommon": 192,
+    "Rare": 93,
+    "Legendary": 10
+   },
+   "$GC Pendant": {
+    "Rare": 83,
+    "Uncommon": 143,
+    "Legendary": 8
+   },
+   "$GC Neon Sign": {
+    "Rare": 85,
+    "Legendary": 22
+   },
+   "Sol-Gradient Coin": {
+    "Uncommon": 41,
+    "Rare": 74,
+    "Legendary": 16
+   },
+   "Diamond Chain": {
+    "Rare": 44,
+    "Legendary": 31
+   },
+   "Vinyl Record": {
+    "Rare": 54,
+    "Uncommon": 35,
+    "Legendary": 7
+   }
+  },
+  "Aura": {
+   "None": {
+    "Common": 7000,
+    "Uncommon": 2000,
+    "Rare": 635
+   },
+   "Lime Glow": {
+    "Rare": 133,
+    "Legendary": 28
+   },
+   "Sparkles": {
+    "Rare": 132,
+    "Legendary": 29
+   },
+   "Neon Aura": {
+    "Legendary": 28
+   },
+   "Gold Aura": {
+    "Legendary": 15
+   }
+  }
+ }
+}

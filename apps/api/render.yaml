@@ -1,0 +1,52 @@
+# Render Blueprint for the GreenCat API (alternative to Railway). Not deployed.
+# In Render: New > Blueprint > pick the repo > set "Blueprint Path" to apps/api/render.yaml.
+# Values with `sync: false` are prompted in the dashboard. Never put secrets in this file.
+# NOTE: plan "free" sleeps after 15 min idle, so the in-process indexer stops while asleep.
+# Use the Helius webhook for ingest on free, or switch plan to starter ($7/mo) for always-on.
+services:
+  - type: web
+    name: greencat-api
+    runtime: docker
+    dockerfilePath: ./apps/api/Dockerfile
+    dockerContext: .
+    plan: free
+    region: oregon
+    branch: main
+    healthCheckPath: /health
+    autoDeployTrigger: commit
+    buildFilter:
+      paths:
+        - apps/api/**
+        - packages/sdk/**
+        - package-lock.json
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: JWT_SECRET
+        generateValue: true          # 256-bit random, base64 (≥32 chars)
+      - key: DATABASE_URL
+        sync: false                  # Neon pooled connection string
+      - key: RPC_URL
+        sync: false                  # https://devnet.helius-rpc.com/?api-key=...
+      - key: HELIUS_WEBHOOK_SECRET
+        generateValue: true
+      - key: CORS_ORIGINS
+        sync: false                  # https://<your-app>.vercel.app
+      - key: SIWS_DOMAIN
+        sync: false                  # <your-app>.vercel.app
+      - key: SIWS_URI
+        sync: false                  # https://greencat-api.onrender.com
+      - key: GREENCAT_PROGRAM_ID
+        value: 8Sy7mqZjHg9U9JW2qe1fEAfooyUrnDkz1XdqFB3ywvPE
+      - key: TRUST_PROXY
+        value: "1"
+      - key: RUN_INDEXER
+        value: "true"
+      - key: INDEXER_MODE
+        value: poll
+      - key: POLL_MS
+        value: "60000"
+      - key: BONUS_DAILY_CAPS
+        value: '{"mint":10,"stake":3,"list":5}'
+      - key: BONUS_MIN_AMOUNTS
+        value: '{"stake":1000,"list":100}'

@@ -1,0 +1,147 @@
+name: CI
+
+on:
+  # Docs-only changes don't need a build (saves Actions minutes on the private-repo quota).
+  push:
+    paths-ignore: ["**/*.md", "docs/**"]
+  pull_request:
+    paths-ignore: ["**/*.md", "docs/**"]
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  RUST_TOOLCHAIN: "1.98.1"
+  AGAVE_VERSION: "4.2.2"
+  ANCHOR_VERSION: "0.31.1"
+  CARGO_TERM_COLOR: always
+
+jobs:
+  rust:
+    name: Rust (fmt, clippy, unit tests)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: ${{ env.RUST_TOOLCHAIN }}
+          components: rustfmt, clippy
+      - uses: Swatinem/rust-cache@v2
+        with:
+          shared-key: host
+      - run: cargo fmt --all -- --check
+      - run: cargo clippy -p greencat --all-targets -- -D warnings
+      - run: cargo clippy -p greencat --all-targets --features mainnet -- -D warnings
+      - run: cargo clippy -p greencat --all-targets --features localnet-short-windows -- -D warnings
+      - run: cargo test -p greencat
+
+  anchor-build:
+    name: Anchor build (SBF)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup-solana
+        with:
+          agave-version: ${{ env.AGAVE_VERSION }}
+          anchor-version: ${{ env.ANCHOR_VERSION }}
+          rust-toolchain: ${{ env.RUST_TOOLCHAIN }}
+      - uses: Swatinem/rust-cache@v2
+        with:
+          shared-key: sbf
+          cache-all-crates: true
+      - name: anchor build (devnet/localnet build)
+        run: anchor build --no-idl
+      - name: Test-only short-window build (localnet suites)
+        run: |
+          cp target/deploy/greencat.so /tmp/greencat.so
+          cargo build-sbf --manifest-path programs/greencat/Cargo.toml --features localnet-short-windows
+          cp target/deploy/greencat.so target/deploy/greencat-short.so
+          cp /tmp/greencat.so target/deploy/greencat.so
+      - name: Mainnet feature build compiles
+        run: |
+          cargo build-sbf --manifest-path programs/greencat/Cargo.toml --features mainnet --sbf-out-dir /tmp/mainnet-out
+          sha256sum target/deploy/greencat.so target/deploy/greencat-short.so /tmp/mainnet-out/greencat.so
+      - uses: actions/upload-artifact@v4
+        with:
+          name: greencat-so
+          path: |
+            target/deploy/greencat.so
+            target/deploy/greencat-short.so
+          retention-days: 7
+
+  node:
+    name: SDK / API / scripts / web
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - name: SDK typecheck + tests
+        run: npm run typecheck -w @greencat/sdk && npm test -w @greencat/sdk
+      - name: API typecheck + tests
+        run: npm run typecheck -w @greencat/api && npm test -w @greencat/api
+      - name: Scripts typecheck + tests
+        run: npm run typecheck:scripts && npm run test:scripts
+      - uses: actions/cache@v4
+        with:
+          path: apps/web/.next/cache
+          key: nextjs-${{ hashFiles('package-lock.json') }}-${{ hashFiles('apps/web/src/**', 'packages/sdk/src/**') }}
+          restore-keys: nextjs-${{ hashFiles('package-lock.json') }}-
+      - name: Web build
+        run: npm test -w @greencat/web && npm run build -w @greencat/web
+
+  localnet:
+    name: Localnet e2e + attack suites
+    # Heavy (~validator per suite); runs on pushes to main and on demand only.
+    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && github.ref == 'refs/heads/main')
+    needs: anchor-build
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup-solana
+        with:
+          agave-version: ${{ env.AGAVE_VERSION }}
+          validator-only: "true"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - uses: actions/download-artifact@v4
+        with:
+          name: greencat-so
+          path: target/deploy
+      - name: e2e (stake → SIWS → /bonus verify, replay/foreign rejects, indexer)
+        working-directory: apps/api
+        run: npx tsx test/e2e-localnet.ts
+      - name: e2e market (classic SPL $GC)
+        working-directory: apps/api
+        run: npx tsx test/e2e-market-localnet.ts
+      - name: e2e market (Token-2022 $GC)
+        working-directory: apps/api
+        run: GC_TOKEN=token2022 npx tsx test/e2e-market-localnet.ts
+      - name: Attack suite (Token-2022 $GC)
+        working-directory: apps/api
+        run: npx tsx test/security-negative-localnet.ts
+      - name: Attack suite (classic SPL $GC)
+        working-directory: apps/api
+        run: GC_TOKEN=spl npx tsx test/security-negative-localnet.ts
+      - name: Scripts against localnet (incl. launch airdrop top-N split, exclude list, on-chain claims)
+        working-directory: apps/api
+        run: npx tsx test/scripts-localnet.ts
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: security-results
+          path: target/security-negative-*.json
+          if-no-files-found: ignore
+          retention-days: 14

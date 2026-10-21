@@ -1,0 +1,16 @@
+# Local Postgres for apps/api (optional — PGlite is used when DATABASE_URL is unset).
+#   docker compose -f apps/api/docker-compose.yml up -d
+#   DATABASE_URL=postgres://greencat:greencat@localhost:5432/greencat npm run api:dev
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: greencat
+      POSTGRES_PASSWORD: greencat
+      POSTGRES_DB: greencat
+    ports:
+      - "5432:5432"
+    volumes:
+      - greencat-pg:/var/lib/postgresql/data
+volumes:
+  greencat-pg:

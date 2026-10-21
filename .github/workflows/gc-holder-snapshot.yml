@@ -1,0 +1,48 @@
+name: Daily $GC holder snapshot
+
+# Airdrop milestone counter + backup record for the launch-airdrop hold check (docs/LAUNCH-AIRDROP-PLAN.md).
+# Prints "wallets >= 100,000 $GC: N / 1000" (the milestone that starts the 7-day snapshot countdown) and
+# holders > 0 in the run's Summary; adds a warning annotation once N >= 1000.
+# Free: ~30 s of Actions time per run, ~12 Helius credits per run (one getProgramAccounts call).
+# Needs the repo secret HELIUS_RPC_URL (mainnet Helius URL incl. api-key). Without it the job skips.
+# Files are kept as workflow artifacts for 90 days (download: Actions → this workflow → run → Artifacts).
+on:
+  schedule:
+    - cron: "0 17 * * *" # daily 17:00 UTC = 10:00 AM PDT / 9:00 AM PST
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: gc-holder-snapshot
+  cancel-in-progress: false
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      RPC_URL: ${{ secrets.HELIUS_RPC_URL }}
+    steps:
+      - name: Skip if HELIUS_RPC_URL is not set
+        id: guard
+        run: |
+          if [ -z "$RPC_URL" ]; then echo "HELIUS_RPC_URL secret not set; skipping."; echo "run=false" >> "$GITHUB_OUTPUT"; else echo "run=true" >> "$GITHUB_OUTPUT"; fi
+      - uses: actions/checkout@v4
+        if: steps.guard.outputs.run == 'true'
+        with:
+          sparse-checkout: |
+            scripts/gc-holder-snapshot.mjs
+            scripts/lib/milestone.mjs
+            scripts/airdrop-exclude.json
+          sparse-checkout-cone-mode: false
+      - name: Count holders (milestone) + snapshot holders ≥100,000 $GC
+        if: steps.guard.outputs.run == 'true'
+        run: node scripts/gc-holder-snapshot.mjs --min-ui 100000 --milestone 1000 --out snapshots
+      - uses: actions/upload-artifact@v4
+        if: steps.guard.outputs.run == 'true'
+        with:
+          name: gc-holders-${{ github.run_id }}
+          path: snapshots/*.json
+          retention-days: 90

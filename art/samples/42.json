@@ -1,0 +1,70 @@
+{
+  "name": "GreenCat #42",
+  "symbol": "GCAT",
+  "description": "Rare GreenCat · Neon Alley · Midnight fur · Tiny Pupils eyes · Bucket Hat · Diamond Chain · “meow or never”",
+  "image": "https://www.greencat69420.com/nft/images/42.png",
+  "external_url": "https://www.greencat69420.com",
+  "attributes": [
+    {
+      "trait_type": "Rarity",
+      "value": "Rare"
+    },
+    {
+      "trait_type": "Background",
+      "value": "Neon Alley"
+    },
+    {
+      "trait_type": "Fur",
+      "value": "Midnight"
+    },
+    {
+      "trait_type": "Eyes",
+      "value": "Tiny Pupils"
+    },
+    {
+      "trait_type": "Eyewear",
+      "value": "None"
+    },
+    {
+      "trait_type": "Hat",
+      "value": "Bucket Hat"
+    },
+    {
+      "trait_type": "Accessory",
+      "value": "Diamond Chain"
+    },
+    {
+      "trait_type": "Aura",
+      "value": "None"
+    },
+    {
+      "trait_type": "Catchphrase",
+      "value": "meow or never"
+    },
+    {
+      "trait_type": "Catalog Seed",
+      "value": "greencat-meme-collection-v1"
+    },
+    {
+      "trait_type": "Token ID",
+      "value": "42"
+    }
+  ],
+  "properties": {
+    "category": "image",
+    "files": [
+      {
+        "uri": "https://www.greencat69420.com/nft/images/42.png",
+        "type": "image/png"
+      }
+    ]
+  },
+  "_greencat": {
+    "draft": true,
+    "artVersion": "art-v1",
+    "rarity": "rare",
+    "catalogSeed": "greencat-meme-collection-v1",
+    "rerolls": 0,
+    "note": "PHASE 1 DRAFT - image URI is a placeholder until upload (see art/README.md)."
+  }
+}

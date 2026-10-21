@@ -1,0 +1,70 @@
+{
+  "name": "GreenCat #1",
+  "symbol": "GCAT",
+  "description": "Common GreenCat · Seafoam Flat · Olive Glow fur · Wink eyes · “hodl whiskers”",
+  "image": "ipfs://__IMAGES_CID__/1.webp",
+  "external_url": "https://www.greencat69420.com",
+  "attributes": [
+    {
+      "trait_type": "Rarity",
+      "value": "Common"
+    },
+    {
+      "trait_type": "Background",
+      "value": "Seafoam Flat"
+    },
+    {
+      "trait_type": "Fur",
+      "value": "Olive Glow"
+    },
+    {
+      "trait_type": "Eyes",
+      "value": "Wink"
+    },
+    {
+      "trait_type": "Eyewear",
+      "value": "None"
+    },
+    {
+      "trait_type": "Hat",
+      "value": "None"
+    },
+    {
+      "trait_type": "Accessory",
+      "value": "None"
+    },
+    {
+      "trait_type": "Aura",
+      "value": "None"
+    },
+    {
+      "trait_type": "Catchphrase",
+      "value": "hodl whiskers"
+    },
+    {
+      "trait_type": "Catalog Seed",
+      "value": "greencat-meme-collection-v1"
+    },
+    {
+      "trait_type": "Token ID",
+      "value": "1"
+    }
+  ],
+  "properties": {
+    "category": "image",
+    "files": [
+      {
+        "uri": "ipfs://__IMAGES_CID__/1.webp",
+        "type": "image/webp"
+      }
+    ]
+  },
+  "_greencat": {
+    "draft": true,
+    "artVersion": "art-v1",
+    "rarity": "common",
+    "catalogSeed": "greencat-meme-collection-v1",
+    "rerolls": 0,
+    "note": "Final art-v1. Image base is a placeholder until IPFS upload (see art/UPLOAD-PLAN.md)."
+  }
+}

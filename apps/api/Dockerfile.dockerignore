@@ -1,0 +1,26 @@
+# BuildKit reads <Dockerfile>.dockerignore when the build context is the repo root.
+# Keep the context small and NEVER send key material or env files to the builder.
+**/node_modules
+**/dist
+**/.next
+**/.env
+**/.env.*
+!**/.env.example
+keys
+.keys
+**/*keypair*.json
+**/id.json
+**/*.pem
+**/*.key
+target
+test-ledger
+art
+metadata/out
+apps/api/data
+apps/indexer/data
+**/pglite
+**/.pglite
+.git
+.github
+programs
+tests

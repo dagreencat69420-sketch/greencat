@@ -1,0 +1,11 @@
+{
+  "mint": "9UCMEvY3mZNuLdnnDVvgEweCTKWkT2d436dPvAHANR59",
+  "decimals": 6,
+  "authorityPubkey": "BVtgzT5Jpqgk5LyJQHMYpab2TwSyWiNPZthrpEKd8Tgp",
+  "cluster": "devnet",
+  "tokenProgram": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+  "authorityAta": "FkLxnm18cqisvwPw6SHeLEevA7zczj1RiJxwB3wZDBJW",
+  "initialSupplyUi": 1000000000,
+  "note": "Classic SPL clone for devnet. Mainnet $GC is Token-2022 at G2b4ZNxLjgTnVtPbuHpK9WXpccFCedoLYQ5uxvdEpump",
+  "createdAt": "2026-10-03T03:17:19.307Z"
+}

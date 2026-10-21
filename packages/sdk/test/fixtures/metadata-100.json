@@ -1,0 +1,70 @@
+{
+  "name": "GreenCat #100",
+  "symbol": "GCAT",
+  "description": "Uncommon GreenCat · Coral Flat · Chartreuse fur · Sleepy eyes · Party Hat · “pump the yarn”",
+  "image": "ipfs://__IMAGES_CID__/100.webp",
+  "external_url": "https://www.greencat69420.com",
+  "attributes": [
+    {
+      "trait_type": "Rarity",
+      "value": "Uncommon"
+    },
+    {
+      "trait_type": "Background",
+      "value": "Coral Flat"
+    },
+    {
+      "trait_type": "Fur",
+      "value": "Chartreuse"
+    },
+    {
+      "trait_type": "Eyes",
+      "value": "Sleepy"
+    },
+    {
+      "trait_type": "Eyewear",
+      "value": "None"
+    },
+    {
+      "trait_type": "Hat",
+      "value": "Party Hat"
+    },
+    {
+      "trait_type": "Accessory",
+      "value": "None"
+    },
+    {
+      "trait_type": "Aura",
+      "value": "None"
+    },
+    {
+      "trait_type": "Catchphrase",
+      "value": "pump the yarn"
+    },
+    {
+      "trait_type": "Catalog Seed",
+      "value": "greencat-meme-collection-v1"
+    },
+    {
+      "trait_type": "Token ID",
+      "value": "100"
+    }
+  ],
+  "properties": {
+    "category": "image",
+    "files": [
+      {
+        "uri": "ipfs://__IMAGES_CID__/100.webp",
+        "type": "image/webp"
+      }
+    ]
+  },
+  "_greencat": {
+    "draft": true,
+    "artVersion": "art-v1",
+    "rarity": "uncommon",
+    "catalogSeed": "greencat-meme-collection-v1",
+    "rerolls": 0,
+    "note": "Final art-v1. Image base is a placeholder until IPFS upload (see art/UPLOAD-PLAN.md)."
+  }
+}

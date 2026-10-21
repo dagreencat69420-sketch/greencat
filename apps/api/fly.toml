@@ -1,0 +1,42 @@
+# Fly.io config for the GreenCat API (alternative to Railway). Not deployed.
+# Run from the REPO ROOT so the build context includes packages/sdk:
+#   fly launch --no-deploy --copy-config --config apps/api/fly.toml --dockerfile apps/api/Dockerfile   (first time; pick your own app name)
+#   fly secrets set --config apps/api/fly.toml JWT_SECRET=... DATABASE_URL=... RPC_URL=... HELIUS_WEBHOOK_SECRET=...
+#   fly deploy . --config apps/api/fly.toml --dockerfile apps/api/Dockerfile
+# Secrets go in `fly secrets`, never in this file.
+app = "greencat-api-devnet"          # change: Fly app names are global
+primary_region = "sea"               # Seattle, closest to Vancouver BC
+
+[build]
+  dockerfile = "Dockerfile"          # overridden by --dockerfile apps/api/Dockerfile above
+
+[deploy]
+  release_command = "node apps/api/dist/migrate.js"   # idempotent; the API also migrates on start
+
+[env]
+  NODE_ENV = "production"
+  PORT = "8787"
+  TRUST_PROXY = "1"                  # Fly's proxy overwrites X-Forwarded-For / Fly-Client-IP
+  RUN_INDEXER = "true"               # single machine runs API + indexer; set "false" if you run apps/indexer/fly.toml
+  INDEXER_MODE = "poll"
+  POLL_MS = "60000"                  # Helius Free friendly
+  GREENCAT_PROGRAM_ID = "8Sy7mqZjHg9U9JW2qe1fEAfooyUrnDkz1XdqFB3ywvPE"
+  BONUS_COMMITMENT = "confirmed"
+
+[http_service]
+  internal_port = 8787
+  force_https = true
+  auto_stop_machines = "off"         # keep the in-process indexer running
+  auto_start_machines = true
+  min_machines_running = 1
+
+  [[http_service.checks]]
+    grace_period = "20s"
+    interval = "30s"
+    method = "GET"
+    path = "/health"
+    timeout = "5s"
+
+[[vm]]
+  size = "shared-cpu-1x"
+  memory = "512mb"

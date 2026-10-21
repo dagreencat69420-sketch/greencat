@@ -1,0 +1,70 @@
+{
+  "name": "GreenCat #2534",
+  "symbol": "GCAT",
+  "description": "Rare GreenCat · Lo-fi Night · Sol Gradient fur · Star Eyes eyes · Halo · $GC Pendant · Lime Glow · “to the litterbox”",
+  "image": "https://www.greencat69420.com/nft/images/2534.png",
+  "external_url": "https://www.greencat69420.com",
+  "attributes": [
+    {
+      "trait_type": "Rarity",
+      "value": "Rare"
+    },
+    {
+      "trait_type": "Background",
+      "value": "Lo-fi Night"
+    },
+    {
+      "trait_type": "Fur",
+      "value": "Sol Gradient"
+    },
+    {
+      "trait_type": "Eyes",
+      "value": "Star Eyes"
+    },
+    {
+      "trait_type": "Eyewear",
+      "value": "None"
+    },
+    {
+      "trait_type": "Hat",
+      "value": "Halo"
+    },
+    {
+      "trait_type": "Accessory",
+      "value": "$GC Pendant"
+    },
+    {
+      "trait_type": "Aura",
+      "value": "Lime Glow"
+    },
+    {
+      "trait_type": "Catchphrase",
+      "value": "to the litterbox"
+    },
+    {
+      "trait_type": "Catalog Seed",
+      "value": "greencat-meme-collection-v1"
+    },
+    {
+      "trait_type": "Token ID",
+      "value": "2534"
+    }
+  ],
+  "properties": {
+    "category": "image",
+    "files": [
+      {
+        "uri": "https://www.greencat69420.com/nft/images/2534.png",
+        "type": "image/png"
+      }
+    ]
+  },
+  "_greencat": {
+    "draft": true,
+    "artVersion": "art-v1",
+    "rarity": "rare",
+    "catalogSeed": "greencat-meme-collection-v1",
+    "rerolls": 0,
+    "note": "PHASE 1 DRAFT - image URI is a placeholder until upload (see art/README.md)."
+  }
+}

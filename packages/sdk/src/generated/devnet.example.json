@@ -1,0 +1,8 @@
+{
+  "mint": "REPLACE_AFTER_RUNNING_scripts/create-devnet-gc-mint.mjs",
+  "decimals": 6,
+  "authorityPubkey": "REPLACE_WITH_DEVNET_AUTHORITY",
+  "cluster": "devnet",
+  "tokenProgram": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+  "note": "Mainnet $GC is Token-2022; this is a classic SPL clone for devnet testing only."
+}

@@ -1,0 +1,20 @@
+=== GreenCat treasury PDAs (derived, pre-init safe) ===
+programId: 8Sy7mqZjHg9U9JW2qe1fEAfooyUrnDkz1XdqFB3ywvPE
+gcMint:    G2b4ZNxLjgTnVtPbuHpK9WXpccFCedoLYQ5uxvdEpump (mainnet CA)
+tokenProg: TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb
+config:    CHtD3yZTZmtGSpkeoHqRHHQM3PUS3venJSJQ2FFc31b8 bump=254
+
+pool_id | label              | PDA                                      | vault ATA
+------------------------------------------------------------------------------------------------------------------------
+      0 | daily_rewards      | BgstthWZDQU1hoUuMyTVS1q7AJQCYAYJacNTL78tNYhu | 5tLSsNf7NyP4k8tftjBMb4iSKkm6XAqBhikft85xBzN9  (bump=254)
+      1 | long_rewards       | 6ZtFJXWRErmDxhqkAFBBD9PEfx6WehEBS62uBC4o8CUk | 65EX3MzfSEkNCzwEyHVz8TwJyHdgQR4nnxoA3m4cMvA3  (bump=253)
+      2 | wheel_bank         | CQsFEBzoXzvNbKtQkTGr16PCAmcKZwTPjBqaW5LuGge9 | BkV46QxZrroejKXQjaBqRVutAqzERqz4kW26JFsrVYDD  (bump=255)
+      3 | nft_fee_treasury   | Abf9PmwktsFKF9WNhSuUEiPRU2MkWmSZX3FBNtGRbPga | FCwoNPSe5p2XJppp5MCPQwXCFqVAAEamhkWmbY5qBUML  (bump=255)
+      4 | mint_proceeds      | 9cZhY476wqrm1PJSXzEFYptS5Am2wmjJZaR4sjGnvjKM | C3dkeT68kJLDyFELGYKfe2PVQNoBYcBQuHE68RkWPzoX  (bump=255)
+      5 | airdrop            | C8HzmHAELh7eyFtnCNdEKHG8HhvW9owkeFxsg3XbBtVu | 5MDspQ9XZb9Vvd6xmgU8txpkS5wSXsquxrCFGwJW5qk1  (bump=250)
+
+Defaults (raw, 6 decimals):
+  airdrop_min_holding      100000000000
+  daily_payout_allowance   20000000000000
+  wheel_payout_allowance   20000000000000
+  long_stake_capacity      100000000000000

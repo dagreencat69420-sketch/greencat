@@ -1,0 +1,6 @@
+.venv/
+__pycache__/
+out/images/
+out/reference-demo-catalog.json
+out/images-webp/
+out/ipfs/

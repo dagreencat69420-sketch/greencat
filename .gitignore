@@ -1,0 +1,76 @@
+# ===== Secrets / key material (NEVER commit) =====
+keys/
+.keys/
+*-keypair.json
+*keypair*.json
+id.json
+**/target/deploy/
+*.pem
+*.key
+*.p12
+*.pfx
+.secrets/
+secrets/
+
+# Environment files: ignore all, keep only examples
+.env
+.env.*
+**/.env
+**/.env.*
+!.env.example
+!**/.env.example
+
+# ===== Build / dependency output =====
+node_modules/
+**/node_modules/
+target/
+.next/
+out/
+dist/
+build/
+.anchor/
+test-ledger/
+.turbo/
+coverage/
+*.so
+# Pinned third-party program fixtures for the localnet suites (public mainnet binaries, ~1.4 MB)
+!tests/fixtures/*.so
+*.tsbuildinfo
+next-env.d.ts
+
+# ===== Local databases (PGlite / Postgres data) =====
+apps/indexer/data/
+apps/api/data/
+**/pgdata/
+**/pglite/
+**/.pglite/
+*.db
+*.sqlite
+*.sqlite3
+
+# ===== Art: rendered output is 5+ GB; keep sources/catalog/scripts/samples =====
+art/out/
+art/.venv/
+**/.venv/
+**/__pycache__/
+*.pyc
+.ipfs/
+**/.ipfs/
+*.car
+
+# metadata generated output
+metadata/out/
+
+# ===== Logs / misc =====
+*.log
+logs/
+npm-debug.log*
+yarn-error.log*
+*.tgz
+.DS_Store
+.vscode/
+.idea/
+
+# Airdrop hold-check outputs + local holder snapshots (contain entrant wallets; keep out of git)
+airdrops/hold/
+snapshots/

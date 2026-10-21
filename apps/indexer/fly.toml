@@ -1,0 +1,28 @@
+# Fly.io config for a SEPARATE GreenCat indexer worker (optional). Not deployed.
+# The production indexer is apps/api/src/worker.ts (Postgres-backed). The JSON poller in
+# apps/indexer/src is a legacy stub and is NOT what this runs.
+# Only use this if the API runs with RUN_INDEXER=false; otherwise you index twice.
+# Same image as the API, different command. From the REPO ROOT:
+#   fly launch --no-deploy --copy-config --config apps/indexer/fly.toml --dockerfile apps/api/Dockerfile
+#   fly secrets set --config apps/indexer/fly.toml DATABASE_URL=... RPC_URL=... JWT_SECRET=...
+#   fly deploy . --config apps/indexer/fly.toml --dockerfile apps/api/Dockerfile
+app = "greencat-indexer-devnet"      # change: Fly app names are global
+primary_region = "sea"
+
+[build]
+  dockerfile = "Dockerfile"          # overridden by --dockerfile apps/api/Dockerfile above
+
+[processes]
+  worker = "node apps/api/dist/worker.js"
+
+[env]
+  NODE_ENV = "production"
+  INDEXER_MODE = "poll"
+  POLL_MS = "60000"
+  GREENCAT_PROGRAM_ID = "8Sy7mqZjHg9U9JW2qe1fEAfooyUrnDkz1XdqFB3ywvPE"
+
+# No [http_service]: the worker serves no HTTP. Fly restarts it if the process exits.
+[[vm]]
+  size = "shared-cpu-1x"
+  memory = "256mb"
+  processes = ["worker"]

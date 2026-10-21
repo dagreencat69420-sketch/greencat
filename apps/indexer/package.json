@@ -1,0 +1,16 @@
+{
+  "name": "@greencat/indexer",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Local marketplace log indexer stub (no paid Helius required)",
+  "scripts": {
+    "start": "node src/poll.mjs",
+    "once": "node src/poll.mjs --once",
+    "parse-fixture": "node src/parseLogs.mjs --fixture",
+    "typecheck": "node -e \"console.log('mjs stub — no tsc')\""
+  },
+  "dependencies": {
+    "@solana/web3.js": "^1.95.4"
+  }
+}

@@ -1,0 +1,56 @@
+name: Setup Solana (Agave) + Anchor
+description: Installs the pinned Agave CLI (cached), optionally the Anchor CLI binary and a host Rust toolchain.
+inputs:
+  agave-version:
+    required: true
+  anchor-version:
+    required: false
+    default: ""
+  rust-toolchain:
+    required: false
+    default: ""
+  validator-only:
+    description: Skip Rust/Anchor/platform-tools (only solana-test-validator is needed)
+    required: false
+    default: "false"
+runs:
+  using: composite
+  steps:
+    - name: Cache Agave install
+      id: agave-cache
+      uses: actions/cache@v4
+      with:
+        path: ~/.local/share/solana/install
+        key: agave-${{ runner.os }}-${{ inputs.agave-version }}
+    - name: Install Agave ${{ inputs.agave-version }}
+      if: steps.agave-cache.outputs.cache-hit != 'true'
+      shell: bash
+      run: sh -c "$(curl -sSfL https://release.anza.xyz/v${{ inputs.agave-version }}/install)"
+    - shell: bash
+      run: |
+        echo "$HOME/.local/share/solana/install/active_release/bin" >> "$GITHUB_PATH"
+    - name: Cache platform-tools
+      if: inputs.validator-only != 'true'
+      uses: actions/cache@v4
+      with:
+        path: ~/.cache/solana
+        key: platform-tools-${{ runner.os }}-${{ inputs.agave-version }}
+    - uses: dtolnay/rust-toolchain@master
+      if: inputs.validator-only != 'true' && inputs.rust-toolchain != ''
+      with:
+        toolchain: ${{ inputs.rust-toolchain }}
+    - name: Install Anchor CLI ${{ inputs.anchor-version }} (prebuilt release binary)
+      if: inputs.validator-only != 'true' && inputs.anchor-version != ''
+      shell: bash
+      run: |
+        mkdir -p "$HOME/.local/anchor/bin"
+        curl -sSfL -o "$HOME/.local/anchor/bin/anchor" \
+          "https://github.com/solana-foundation/anchor/releases/download/v${{ inputs.anchor-version }}/anchor-${{ inputs.anchor-version }}-x86_64-unknown-linux-gnu"
+        chmod +x "$HOME/.local/anchor/bin/anchor"
+        echo "$HOME/.local/anchor/bin" >> "$GITHUB_PATH"
+    - name: Versions
+      shell: bash
+      run: |
+        solana --version
+        command -v anchor >/dev/null && anchor --version || true
+        command -v cargo-build-sbf >/dev/null && cargo-build-sbf --version || true

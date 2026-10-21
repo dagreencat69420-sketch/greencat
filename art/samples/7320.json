@@ -1,0 +1,70 @@
+{
+  "name": "GreenCat #7320",
+  "symbol": "GCAT",
+  "description": "Legendary GreenCat · Moonlit Rooftop · Holographic fur · Laser Eyes eyes · Gold Aviators · Halo · Vinyl Record · Sparkles · “floor is lava”",
+  "image": "https://www.greencat69420.com/nft/images/7320.png",
+  "external_url": "https://www.greencat69420.com",
+  "attributes": [
+    {
+      "trait_type": "Rarity",
+      "value": "Legendary"
+    },
+    {
+      "trait_type": "Background",
+      "value": "Moonlit Rooftop"
+    },
+    {
+      "trait_type": "Fur",
+      "value": "Holographic"
+    },
+    {
+      "trait_type": "Eyes",
+      "value": "Laser Eyes"
+    },
+    {
+      "trait_type": "Eyewear",
+      "value": "Gold Aviators"
+    },
+    {
+      "trait_type": "Hat",
+      "value": "Halo"
+    },
+    {
+      "trait_type": "Accessory",
+      "value": "Vinyl Record"
+    },
+    {
+      "trait_type": "Aura",
+      "value": "Sparkles"
+    },
+    {
+      "trait_type": "Catchphrase",
+      "value": "floor is lava"
+    },
+    {
+      "trait_type": "Catalog Seed",
+      "value": "greencat-meme-collection-v1"
+    },
+    {
+      "trait_type": "Token ID",
+      "value": "7320"
+    }
+  ],
+  "properties": {
+    "category": "image",
+    "files": [
+      {
+        "uri": "https://www.greencat69420.com/nft/images/7320.png",
+        "type": "image/png"
+      }
+    ]
+  },
+  "_greencat": {
+    "draft": true,
+    "artVersion": "art-v1",
+    "rarity": "legendary",
+    "catalogSeed": "greencat-meme-collection-v1",
+    "rerolls": 0,
+    "note": "PHASE 1 DRAFT - image URI is a placeholder until upload (see art/README.md)."
+  }
+}

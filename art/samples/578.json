@@ -1,0 +1,70 @@
+{
+  "name": "GreenCat #578",
+  "symbol": "GCAT",
+  "description": "Uncommon GreenCat · Sky Flat · Mint Vinyl fur · Heart Eyes eyes · Propeller Cap · Balloon · “vibes only”",
+  "image": "https://www.greencat69420.com/nft/images/578.png",
+  "external_url": "https://www.greencat69420.com",
+  "attributes": [
+    {
+      "trait_type": "Rarity",
+      "value": "Uncommon"
+    },
+    {
+      "trait_type": "Background",
+      "value": "Sky Flat"
+    },
+    {
+      "trait_type": "Fur",
+      "value": "Mint Vinyl"
+    },
+    {
+      "trait_type": "Eyes",
+      "value": "Heart Eyes"
+    },
+    {
+      "trait_type": "Eyewear",
+      "value": "None"
+    },
+    {
+      "trait_type": "Hat",
+      "value": "Propeller Cap"
+    },
+    {
+      "trait_type": "Accessory",
+      "value": "Balloon"
+    },
+    {
+      "trait_type": "Aura",
+      "value": "None"
+    },
+    {
+      "trait_type": "Catchphrase",
+      "value": "vibes only"
+    },
+    {
+      "trait_type": "Catalog Seed",
+      "value": "greencat-meme-collection-v1"
+    },
+    {
+      "trait_type": "Token ID",
+      "value": "578"
+    }
+  ],
+  "properties": {
+    "category": "image",
+    "files": [
+      {
+        "uri": "https://www.greencat69420.com/nft/images/578.png",
+        "type": "image/png"
+      }
+    ]
+  },
+  "_greencat": {
+    "draft": true,
+    "artVersion": "art-v1",
+    "rarity": "uncommon",
+    "catalogSeed": "greencat-meme-collection-v1",
+    "rerolls": 0,
+    "note": "PHASE 1 DRAFT - image URI is a placeholder until upload (see art/README.md)."
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "name": "greencat-app",
+  "version": "0.1.0",
+  "private": true,
+  "description": "GreenCat Holder App — real Solana monorepo (devnet scaffold)",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace=@greencat/web",
+    "build": "npm run build --workspace=@greencat/web",
+    "build:sdk": "npm run build --workspace=@greencat/sdk",
+    "create-devnet-mint": "node scripts/create-devnet-gc-mint.mjs",
+    "airdrop-gc": "node scripts/airdrop-devnet-gc.mjs",
+    "anchor:build": "anchor build --no-idl && cp target/deploy/greencat.so target/deploy/greencat.prod.so && cargo build-sbf --manifest-path programs/greencat/Cargo.toml --features localnet-short-windows && cp target/deploy/greencat.so target/deploy/greencat-short.so && cp target/deploy/greencat.prod.so target/deploy/greencat.so",
+    "anchor:test": "anchor test",
+    "derive-pdas": "node scripts/derive-treasury-pdas.mjs",
+    "init-treasuries": "tsx scripts/initialize-treasuries.ts",
+    "deposit-treasury": "node scripts/deposit-treasury.mjs",
+    "withdraw-treasury": "node scripts/withdraw-treasury.mjs",
+    "init-collection": "tsx scripts/initialize-collection.ts",
+    "mint-nft": "tsx scripts/mint-nft.ts",
+    "list-nft": "tsx scripts/list-nft.ts",
+    "buy-nft": "tsx scripts/buy-nft.ts",
+    "generate-metadata": "node scripts/generate-metadata.mjs",
+    "indexer:poll": "npm run dev:worker --workspace=@greencat/api",
+    "indexer:once": "npm run worker:once --workspace=@greencat/api",
+    "indexer:fixture": "npm run parse-fixture --workspace=@greencat/indexer",
+    "build:all": "npm run typecheck --workspace=@greencat/sdk && npm run build --workspace=@greencat/api && npm run build --workspace=@greencat/web",
+    "lint": "npm run lint --workspace=@greencat/web && npm run typecheck --workspace=@greencat/api && npm run typecheck --workspace=@greencat/sdk",
+    "test": "npm run test --workspace=@greencat/sdk && npm run test --workspace=@greencat/api",
+    "api:dev": "npm run dev --workspace=@greencat/api",
+    "api:start": "npm run start --workspace=@greencat/api",
+    "api:migrate": "npm run migrate --workspace=@greencat/api",
+    "api:test": "npm run test --workspace=@greencat/api",
+    "api:e2e": "npm run test:e2e --workspace=@greencat/api",
+    "indexer:legacy": "npm run start --workspace=@greencat/indexer",
+    "anchor:build:mainnet": "cargo build-sbf --manifest-path programs/greencat/Cargo.toml --features mainnet",
+    "reveal": "tsx scripts/reveal.ts",
+    "admin": "tsx scripts/admin.ts",
+    "airdrop": "tsx scripts/airdrop.ts",
+    "airdrop:hold-check": "tsx scripts/airdrop-hold-check.ts",
+    "gc-snapshot": "node scripts/gc-holder-snapshot.mjs",
+    "smoke-market": "npm run test:e2e:market --workspace=@greencat/api",
+    "test:security": "npm run test:security --workspace=@greencat/api && GC_TOKEN=spl npm run test:security --workspace=@greencat/api",
+    "api:e2e:market": "npm run test:e2e:market --workspace=@greencat/api",
+    "typecheck:scripts": "tsc -p scripts/tsconfig.json",
+    "test:scripts": "tsx --test scripts/lib/holdWalk.test.ts scripts/lib/allocation.test.ts scripts/lib/milestone.test.ts"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@solana/spl-token": "^0.4.9",
+    "@solana/web3.js": "^1.95.4"
+  },
+  "devDependencies": {
+    "tsx": "^4.23.15",
+    "typescript": "^5.6.3"
+  },
+  "overrides": {
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "@types/react": "18.3.11",
+    "@types/react-dom": "18.3.1"
+  }
+}

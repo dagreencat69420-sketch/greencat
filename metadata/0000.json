@@ -1,0 +1,26 @@
+{
+  "name": "GreenCat EXAMPLE #0000",
+  "symbol": "GCAT",
+  "description": "EXAMPLE ONLY — token id 0 is NOT in the 1..10000 catalog. Schema reference for docs/METADATA-PIPELINE.md. Do not mint or upload as a real NFT.",
+  "image": "https://www.greencat69420.com/nft/placeholders/EXAMPLE-0000.png",
+  "external_url": "https://www.greencat69420.com",
+  "attributes": [
+    { "trait_type": "Rarity", "value": "EXAMPLE" },
+    { "trait_type": "Catalog Seed", "value": "greencat-meme-collection-v1" },
+    { "trait_type": "Token ID", "value": "0" },
+    { "trait_type": "Status", "value": "EXAMPLE PLACEHOLDER — invalid id; real tokens are 1..10000" }
+  ],
+  "properties": {
+    "category": "image",
+    "files": [
+      {
+        "uri": "https://www.greencat69420.com/nft/placeholders/EXAMPLE-0000.png",
+        "type": "image/png"
+      }
+    ]
+  },
+  "_greencat": {
+    "example": true,
+    "note": "Schema stub only. Production files are {tokenId}.json for tokenId 1..10000."
+  }
+}

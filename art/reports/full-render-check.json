@@ -1,0 +1,12 @@
+{
+ "images_dir": "/workspace/greencat-app/art/out/images-webp",
+ "present": 10000,
+ "missing": 0,
+ "empty": 0,
+ "invalid_image": 0,
+ "metadata_mismatch": 0,
+ "total_bytes": 690370208,
+ "total_GB": 0.69,
+ "avg_MB": 0.069,
+ "first_problems": []
+}

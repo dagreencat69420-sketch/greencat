@@ -1,0 +1,70 @@
+{
+  "name": "GreenCat #5000",
+  "symbol": "GCAT",
+  "description": "Rare GreenCat · Chart Green · Midnight fur · Grumpy eyes · Neon Visor · Crown · Diamond Chain · “meow or never”",
+  "image": "ipfs://__IMAGES_CID__/5000.webp",
+  "external_url": "https://www.greencat69420.com",
+  "attributes": [
+    {
+      "trait_type": "Rarity",
+      "value": "Rare"
+    },
+    {
+      "trait_type": "Background",
+      "value": "Chart Green"
+    },
+    {
+      "trait_type": "Fur",
+      "value": "Midnight"
+    },
+    {
+      "trait_type": "Eyes",
+      "value": "Grumpy"
+    },
+    {
+      "trait_type": "Eyewear",
+      "value": "Neon Visor"
+    },
+    {
+      "trait_type": "Hat",
+      "value": "Crown"
+    },
+    {
+      "trait_type": "Accessory",
+      "value": "Diamond Chain"
+    },
+    {
+      "trait_type": "Aura",
+      "value": "None"
+    },
+    {
+      "trait_type": "Catchphrase",
+      "value": "meow or never"
+    },
+    {
+      "trait_type": "Catalog Seed",
+      "value": "greencat-meme-collection-v1"
+    },
+    {
+      "trait_type": "Token ID",
+      "value": "5000"
+    }
+  ],
+  "properties": {
+    "category": "image",
+    "files": [
+      {
+        "uri": "ipfs://__IMAGES_CID__/5000.webp",
+        "type": "image/webp"
+      }
+    ]
+  },
+  "_greencat": {
+    "draft": true,
+    "artVersion": "art-v1",
+    "rarity": "rare",
+    "catalogSeed": "greencat-meme-collection-v1",
+    "rerolls": 0,
+    "note": "Final art-v1. Image base is a placeholder until IPFS upload (see art/UPLOAD-PLAN.md)."
+  }
+}

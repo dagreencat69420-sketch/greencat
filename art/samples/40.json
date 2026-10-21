@@ -1,0 +1,70 @@
+{
+  "name": "GreenCat #40",
+  "symbol": "GCAT",
+  "description": "Common GreenCat · Sage Flat · Sky Vinyl fur · Big Pupils eyes · Round Specs · Cowboy Hat · Bow Tie · “vibes only”",
+  "image": "https://www.greencat69420.com/nft/images/40.png",
+  "external_url": "https://www.greencat69420.com",
+  "attributes": [
+    {
+      "trait_type": "Rarity",
+      "value": "Common"
+    },
+    {
+      "trait_type": "Background",
+      "value": "Sage Flat"
+    },
+    {
+      "trait_type": "Fur",
+      "value": "Sky Vinyl"
+    },
+    {
+      "trait_type": "Eyes",
+      "value": "Big Pupils"
+    },
+    {
+      "trait_type": "Eyewear",
+      "value": "Round Specs"
+    },
+    {
+      "trait_type": "Hat",
+      "value": "Cowboy Hat"
+    },
+    {
+      "trait_type": "Accessory",
+      "value": "Bow Tie"
+    },
+    {
+      "trait_type": "Aura",
+      "value": "None"
+    },
+    {
+      "trait_type": "Catchphrase",
+      "value": "vibes only"
+    },
+    {
+      "trait_type": "Catalog Seed",
+      "value": "greencat-meme-collection-v1"
+    },
+    {
+      "trait_type": "Token ID",
+      "value": "40"
+    }
+  ],
+  "properties": {
+    "category": "image",
+    "files": [
+      {
+        "uri": "https://www.greencat69420.com/nft/images/40.png",
+        "type": "image/png"
+      }
+    ]
+  },
+  "_greencat": {
+    "draft": true,
+    "artVersion": "art-v1",
+    "rarity": "common",
+    "catalogSeed": "greencat-meme-collection-v1",
+    "rerolls": 0,
+    "note": "PHASE 1 DRAFT - image URI is a placeholder until upload (see art/README.md)."
+  }
+}

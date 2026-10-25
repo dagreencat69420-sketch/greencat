@@ -27,7 +27,7 @@ import { CLUSTER, GC_DECIMALS } from "@/lib/config";
 import { formatGc } from "@/lib/balances";
 import { useSendTx } from "@/lib/useSendTx";
 import { UserFacingError } from "@/lib/errors";
-import { API_URL } from "@/lib/api";
+import { API_URL, publicApi } from "@/lib/api";
 import { nftLabel, useMyNfts } from "@/lib/nfts";
 import { shortKey } from "@/lib/explorer";
 import { usePoints } from "@/context/PointsContext";
@@ -59,6 +59,18 @@ export function MarketplacePanel() {
   const [busy, setBusy] = useState<string | null>(null);
   const [err, setErr] = useState<unknown>(null);
   const [ok, setOk] = useState<{ title: string; sig: string } | null>(null);
+  const [apiMatchesProgram, setApiMatchesProgram] = useState(false);
+
+  useEffect(() => {
+    if (!publicApi) {
+      setApiMatchesProgram(false);
+      return;
+    }
+    publicApi
+      .health()
+      .then((h) => setApiMatchesProgram(Boolean(h?.ok && h.programId === p.programId.toBase58())))
+      .catch(() => setApiMatchesProgram(false));
+  }, [p.programId]);
 
   const withRecords = useCallback(
     async (ls: DecodedListing[]): Promise<Row[]> => {
@@ -193,7 +205,7 @@ export function MarketplacePanel() {
   return (
     <div className="space-y-5">
       <Panel title="Browse" subtitle="Buy and sell with $GC · 1% marketplace fee">
-        {API_URL ? (
+        {API_URL && apiMatchesProgram ? (
           <MarketplaceBrowse onSelect={(mint) => void selectMint(mint)} />
         ) : rowsErr ? (
           <ErrorNotice error={rowsErr} onRetry={() => void loadRows()} />

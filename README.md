@@ -24,14 +24,29 @@ Product lock: `REAL-APP-SPEC.md` (includes **airdrop** treasury PDA). Demo airdr
 
 See [`docs/HOSTING.md`](docs/HOSTING.md) for public hosting of the API, indexer, and web (free and cheap tiers).
 
+## Mainnet Deployment (Live — 2026-10-25)
+
+| Item | Value |
+|---|---|
+| **Mainnet Web App** | [`https://app.greencat69420.com`](https://app.greencat69420.com) |
+| **Mainnet Program ID** | `2pwrnxCswbq9cjgfRWQAMJUp6n1MRALpURLBjbmFURdc` |
+| **ProgramData Account** | `AfF1zN8GqMHQotkeMT5QRMhk7PHNR81nkX1raJsB794e` |
+| **`$GC` Token Mint (Token-2022)** | `G2b4ZNxLjgTnVtPbuHpK9WXpccFCedoLYQ5uxvdEpump` (`6` decimals) |
+| **Config PDA** | `Hwog6h9ekbpatGnuZMxsfg2G9RmM62YJnv66trwfiXmt` |
+| **Collection PDA** | `9sSWcZLCtLeEGkExmtVL6ruRJdqiiHckyzjZZDRKX24K` |
+| **Collection Mint PDA** | `78qgzuHNRVPTUQM2ZZTwN8GntyfEy8uTfiVP7fXUyjFY` |
+| **NFT Update Authority (`nft_authority`) PDA** | `EvTxFanrhmhUmTL1VaYsRobGSfh83vkSz3nM9ScsbtHz` |
+| **MintPool PDA** | `AQrCkhgQQm5rez5cNX45j3KfCKcYMrKEvSBXLKfUcFoD` |
+| **Upgrade & Config Authority** | `13zewBMqmpvv9oJWaqBRn9ww59h6qBh7z5XNpowyfyj6` |
+
 ## Layout
 
 ```
-apps/web          Next.js 14 + Tailwind + wallet-adapter (devnet)
+apps/web          Next.js 14 + Tailwind + wallet-adapter (mainnet & devnet)
 apps/indexer      Local marketplace log poller stub (no Helius required)
 packages/sdk      Shared constants / cluster helpers / points rules / generated mint config
 programs/greencat Anchor program (treasuries, mint, market, stake, airdrop)
-scripts/          Devnet helpers + generate-metadata.mjs
+scripts/          Mainnet & devnet helpers + generate-metadata.mjs
 metadata/         EXAMPLE Metaplex JSON samples (not production art)
 docs/             METADATA-PIPELINE, INDEXER, LEGAL-DRAFTS, POINTS
 keys/             Local keypairs (gitignored) — authority + program id
@@ -102,7 +117,7 @@ cargo test -p greencat
 npm run derive-pdas
 ```
 
-Program id: `8Sy7mqZjHg9U9JW2qe1fEAfooyUrnDkz1XdqFB3ywvPE`. `pool_id`: 0=daily_rewards 1=long_rewards 2=wheel_bank 3=nft_fee_treasury 4=mint_proceeds 5=airdrop.
+Mainnet Program ID (`--features mainnet`): `2pwrnxCswbq9cjgfRWQAMJUp6n1MRALpURLBjbmFURdc` (Devnet Program ID: `8Sy7mqZjHg9U9JW2qe1fEAfooyUrnDkz1XdqFB3ywvPE`). `pool_id`: 0=daily_rewards 1=long_rewards 2=wheel_bank 3=nft_fee_treasury 4=mint_proceeds 5=airdrop.
 All amounts are **raw** (UI × 10^6). $GC can be Token-2022 or classic SPL (`token_interface`). Config LEN 312 and Collection LEN 2824, so **re-init fresh** after this upgrade.
 
 ### Local tests (spawn their own validator, offline: ORAO + Metaplex from `tests/fixtures/`)
@@ -138,17 +153,17 @@ npm run test:vrf-expiry --workspace=@greencat/api   # /admin Set VRF expiry: adm
 ## Notes
 
 - No guaranteed-returns copy for 365d bonus.
-- Admin and upgrade authority should move to a Squads v4 multisig before mainnet (`docs/DEPLOY.md`).
-- Devnet authority `keys/devnet-authority.json` often has **0 SOL** (public faucet rate-limited). Deploy + init needs **≈7.4 SOL** (the loader recycles the buffer into program data; ~8 SOL recommended, see `docs/DEPLOY.md`).
+- Mainnet Config authority, upgrade authority, and 5% royalty recipient are `13zewBMqmpvv9oJWaqBRn9ww59h6qBh7z5XNpowyfyj6`.
+- Devnet authority `keys/devnet-authority.json` often has **0 SOL** (public faucet rate-limited).
 
 ## Build status
 
-| Piece | Status (2026-09-30 PT) |
+| Piece | Status (2026-10-25 PT) |
 |-------|--------|
 | `cargo test -p greencat`, clippy `-D warnings` (3 feature sets), `cargo audit` | pass (0 vulnerabilities) |
 | SDK / API vitest, localnet e2e (stake/bonus, market spl + token2022), security 94 × 2, scripts smoke | pass |
 | `npm run build` (apps/web) | pass |
-| Devnet deploy / init | **Not done** (needs ~8 SOL on the deployer) |
+| Devnet deploy / init (`8Sy7mqZjHg9U9JW2qe1fEAfooyUrnDkz1XdqFB3ywvPE`) | **Live** |
+| Mainnet deploy / init (`2pwrnxCswbq9cjgfRWQAMJUp6n1MRALpURLBjbmFURdc`) | **Live (`https://app.greencat69420.com`)** |
 
 Demo app at `/workspace/greencat-holder-app` is **not** modified by this repo.
-

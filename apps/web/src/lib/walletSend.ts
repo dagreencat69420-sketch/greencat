@@ -14,13 +14,28 @@
  *    the cluster the app actually reads from.
  *
  * The blockhash is fetched right before the wallet prompt (after the app-side preflight), and confirmation uses
- * that blockhash's lastValidBlockHeight. If the wallet replaced the blockhash while signing we derive a new
- * expiry height instead of waiting on the wrong one.
+ * fast `getSignatureStatuses` polling + `isBlockhashValid` so we never hit false `block height exceeded` errors
+ * when an RPC endpoint returns slot instead of block height or when WebSocket signature subscriptions are disabled.
  */
-import type { Connection, Keypair, PublicKey, SendOptions, Transaction, TransactionSignature } from "@solana/web3.js";
+import { ComputeBudgetProgram, type Connection, type Keypair, type PublicKey, type SendOptions, type Transaction, type TransactionSignature } from "@solana/web3.js";
 import type { WalletName } from "@solana/wallet-adapter-base";
 import { CLUSTER } from "@/lib/config";
 import { UserFacingError } from "@/lib/errors";
+
+const COMPUTE_BUDGET_PROGRAM_ID_STR = ComputeBudgetProgram.programId.toBase58();
+/** Default priority fee on mainnet (50,000 microLamports/CU ≈ 0.00001 SOL for 200k CU) so txs land in 1–2s. */
+const MAINNET_PRIORITY_FEE_MICROLAMPORTS = 50_000;
+
+/** Add SetComputeUnitPrice on mainnet if the transaction doesn't already have one. */
+function ensurePriorityFee(tx: Transaction): void {
+  if (CLUSTER !== "mainnet-beta") return;
+  const hasComputePrice = tx.instructions.some(
+    (ix) => ix.programId.toBase58() === COMPUTE_BUDGET_PROGRAM_ID_STR && ix.data.length > 0 && ix.data[0] === 3
+  );
+  if (!hasComputePrice) {
+    tx.instructions.unshift(ComputeBudgetProgram.setComputeUnitPrice({ microLamports: MAINNET_PRIORITY_FEE_MICROLAMPORTS }));
+  }
+}
 
 type SendTransactionFn = (
   tx: Transaction,
@@ -77,6 +92,62 @@ async function signWithChain(adapter: unknown, publicKey: PublicKey, tx: Transac
 }
 
 /**
+ * Poll `getSignatureStatuses` directly every 1.2s (up to ~75s), checking `isBlockhashValid` only after 30s
+ * and always re-checking `getSignatureStatuses` before declaring a transaction expired.
+ */
+export async function waitForSignatureConfirmation(
+  connection: Connection,
+  sig: string,
+  blockhash?: string,
+  timeoutMs = 75_000
+): Promise<void> {
+  const started = Date.now();
+  let invalidCount = 0;
+  while (Date.now() - started < timeoutMs) {
+    try {
+      const { value } = await connection.getSignatureStatuses([sig], { searchTransactionHistory: true });
+      const st = value?.[0];
+      if (st) {
+        if (st.err) throw new Error(`Transaction failed: ${JSON.stringify(st.err)}`);
+        if (st.confirmationStatus === "confirmed" || st.confirmationStatus === "finalized" || (st.confirmations !== null && st.confirmations > 0)) {
+          return;
+        }
+      }
+      // Only check blockhash validity after 25s have elapsed so a wallet-replaced blockhash or transient lag never aborts early
+      if (blockhash && Date.now() - started > 25_000) {
+        const valid = await connection.isBlockhashValid(blockhash, { commitment: "confirmed" }).catch(() => null);
+        if (valid && valid.value === false) {
+          invalidCount++;
+          if (invalidCount >= 3) {
+            // Final check before throwing expired
+            const finalCheck = await connection.getSignatureStatuses([sig], { searchTransactionHistory: true }).catch(() => null);
+            const finalSt = finalCheck?.value?.[0];
+            if (finalSt) {
+              if (finalSt.err) throw new Error(`Transaction failed: ${JSON.stringify(finalSt.err)}`);
+              if (finalSt.confirmationStatus === "confirmed" || finalSt.confirmationStatus === "finalized") return;
+            }
+            throw new Error(`Signature ${sig} has expired: block height exceeded.`);
+          }
+        }
+      }
+    } catch (e) {
+      if (e instanceof Error && (e.message.startsWith("Transaction failed:") || e.message.includes("has expired:"))) {
+        throw e;
+      }
+    }
+    await sleep(1200);
+  }
+  // Final status check at timeout
+  const last = await connection.getSignatureStatuses([sig], { searchTransactionHistory: true }).catch(() => null);
+  const lastSt = last?.value?.[0];
+  if (lastSt) {
+    if (lastSt.err) throw new Error(`Transaction failed: ${JSON.stringify(lastSt.err)}`);
+    if (lastSt.confirmationStatus === "confirmed" || lastSt.confirmationStatus === "finalized") return;
+  }
+  throw new Error(`Signature ${sig} has expired: block height exceeded.`);
+}
+
+/**
  * Give the wallet `tx` (fee payer + instructions set; extra `signers` are applied here after the final
  * blockhash is set) and wait for "confirmed" on the app's cluster. Throws on program failure / expiry.
  */
@@ -86,8 +157,9 @@ export async function sendAndConfirmWithWallet(
   opts: { signers?: Keypair[]; onSubmitted?: (sig: string) => void } = {}
 ): Promise<string> {
   const { connection } = ctx;
+  ensurePriorityFee(tx);
   // Fresh blockhash immediately before the prompt (mobile approvals can take a while).
-  const { blockhash, lastValidBlockHeight } = await connection.getLatestBlockhash("confirmed");
+  const { blockhash } = await connection.getLatestBlockhash("confirmed");
   tx.recentBlockhash = blockhash;
   tx.feePayer = ctx.publicKey;
 
@@ -95,11 +167,10 @@ export async function sendAndConfirmWithWallet(
     const sig = await ctx.sendTransaction(tx, connection, {
       signers: opts.signers?.length ? opts.signers : undefined,
       preflightCommitment: "confirmed",
-      maxRetries: 3,
+      maxRetries: 5,
     });
     opts.onSubmitted?.(sig);
-    const res = await connection.confirmTransaction({ signature: sig, blockhash, lastValidBlockHeight }, "confirmed");
-    if (res.value.err) throw new Error(`Transaction failed: ${JSON.stringify(res.value.err)}`);
+    await waitForSignatureConfirmation(connection, sig, blockhash);
     return sig;
   }
 
@@ -109,18 +180,13 @@ export async function sendAndConfirmWithWallet(
   const signed = (await signWithChain(ctx.adapter, ctx.publicKey, tx)) ?? (await ctx.signTransaction(tx));
   if (opts.signers?.length) signed.partialSign(...opts.signers);
   if (!signed.signature) throw new UserFacingError("unknown", "Your wallet returned an unsigned transaction.", "Refresh the page and try again.");
-  let expiryHeight = lastValidBlockHeight;
   const usedBlockhash = signed.recentBlockhash ?? blockhash;
-  if (usedBlockhash !== blockhash) {
-    // Wallet swapped in its own blockhash: ~150 blocks of validity from now is the conservative bound.
-    expiryHeight = (await connection.getBlockHeight("confirmed")) + 150;
-  }
   const raw = signed.serialize();
   // Preflight on the app's RPC: a program error comes back immediately with logs (→ friendlyError).
-  const sig = await connection.sendRawTransaction(raw, { skipPreflight: false, preflightCommitment: "confirmed", maxRetries: 0 });
+  const sig = await connection.sendRawTransaction(raw, { skipPreflight: false, preflightCommitment: "confirmed", maxRetries: 3 });
   opts.onSubmitted?.(sig);
 
-  // Rebroadcast every 2 s until confirmed or the blockhash expires (public devnet RPC drops txs under load).
+  // Rebroadcast every 2 s until confirmed or timeout (public RPCs can drop txs under load).
   let done = false;
   const rebroadcast = (async () => {
     while (!done) {
@@ -134,11 +200,7 @@ export async function sendAndConfirmWithWallet(
     }
   })();
   try {
-    const res = await connection.confirmTransaction(
-      { signature: sig, blockhash: usedBlockhash, lastValidBlockHeight: expiryHeight },
-      "confirmed"
-    );
-    if (res.value.err) throw new Error(`Transaction failed: ${JSON.stringify(res.value.err)}`);
+    await waitForSignatureConfirmation(connection, sig, usedBlockhash);
     return sig;
   } finally {
     done = true;

@@ -5,7 +5,7 @@ import { ConnectionProvider, WalletProvider } from "@solana/wallet-adapter-react
 import { WalletModalProvider } from "@solana/wallet-adapter-react-ui";
 import { PhantomWalletAdapter } from "@solana/wallet-adapter-phantom";
 import type { Adapter } from "@solana/wallet-adapter-base";
-import { RPC_URL } from "@/lib/config";
+import { CLUSTER, RPC_URL } from "@/lib/config";
 import { MOCK_WALLET_NAME, MockWalletAdapter, mockWalletKey } from "@/lib/mockWallet";
 import { friendlyError } from "@/lib/errors";
 import { useToast } from "@/components/Toaster";
@@ -13,6 +13,7 @@ import { useToast } from "@/components/Toaster";
 // wallet-adapter ships FC types that clash with @types/react under some resolvers
 const Conn = ConnectionProvider as ComponentType<{
   endpoint: string;
+  config?: { commitment?: "processed" | "confirmed" | "finalized"; wsEndpoint?: string };
   children?: ReactNode;
 }>;
 const Wall = WalletProvider as ComponentType<{
@@ -24,7 +25,20 @@ const Wall = WalletProvider as ComponentType<{
 const Modal = WalletModalProvider as ComponentType<{ children?: ReactNode }>;
 
 export function WalletContextProvider({ children }: { children: ReactNode }) {
-  const endpoint = useMemo(() => RPC_URL, []);
+  const endpoint = useMemo(() => {
+    if (typeof window !== "undefined" && RPC_URL.endsWith("/api/rpc")) {
+      return `${window.location.origin}/api/rpc`;
+    }
+    return RPC_URL;
+  }, []);
+  const connConfig = useMemo(() => {
+    const wsEndpoint =
+      process.env.NEXT_PUBLIC_WS_URL?.trim() ||
+      (CLUSTER === "mainnet-beta" && endpoint.includes("/api/rpc")
+        ? "wss://solana-rpc.publicnode.com"
+        : undefined);
+    return wsEndpoint ? { commitment: "confirmed" as const, wsEndpoint } : { commitment: "confirmed" as const };
+  }, [endpoint]);
   const { toast } = useToast();
   // autoConnect can fail quietly on load (locked wallet); only toast for errors after the page has settled.
   const mountedAt = useRef(0);
@@ -46,7 +60,7 @@ export function WalletContextProvider({ children }: { children: ReactNode }) {
   }, []);
 
   return (
-    <Conn endpoint={endpoint}>
+    <Conn endpoint={endpoint} config={connConfig}>
       <Wall
         wallets={wallets}
         autoConnect
